@@ -2,16 +2,17 @@
 <html ng-app="hangman">
     <head>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/hangman.css">
     </head>
     
     <header>
-        <h1 class="text-center">Hangman</h1>
+        <h1 id="title" class="text-center">Tom Brady Hangman</h1>
     </header>
     
-    <body class="container" ng-controller="HangmanController as hangman">
+    <body id="outer" class="container" ng-controller="HangmanController as hangman">
         
-        <script type="text/javascript" src="js/angular.min.js"></script>
-        <script type="text/javascript" src="js/hangman.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/hangman.js"></script>
         
         <form name="setupForm" ng-controller="SetupController as setupCtrl" ng-submit="setupCtrl.done(hangman)" ng-hide="hangman.setupComplete">
             <fieldset class="form-group">
@@ -21,13 +22,11 @@
                 <input type="submit" class="btn btn-success btn-block" value="Done" />
             </fieldset>
         </form>
-         
+    
+        
         <div class="gallery" style="text-align: center" ng-show="hangman.setupComplete">
             <img ng-src="{{hangman.image}}" />
         </div>
-        
-        <div> {{hangman.numberOfMisses}}</div>
-        <div> {{hangman.winner}}</div>
         
         <form name="dataEntryForm" ng-controller="DataEntryController as dataEntryCtrl" ng-submit="dataEntryCtrl.submit(hangman)" ng-show="hangman.setupComplete">
             <fieldset class="form-group" style="text-align: center">
@@ -43,7 +42,7 @@
                 <blockquote>{{hangman.definition}}</blockquote>    
             </fieldset>
         </form>
-        
+     
     </body>
     
 </html>

@@ -1,0 +1,11 @@
+body {
+    background-color:#D0D0D0;
+}
+
+#title {
+    text-align:center; 
+    font-weight:500;
+    color:black; 
+    font-size:70px;
+    font-style: italic;
+}
