@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="hangman">
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    </head>
+    
+    <header>
+        <h1 class="text-center">Hangman</h1>
+    </header>
+    
+    <body class="container" ng-controller="HangmanController as hangman">
+        
+        <script type="text/javascript" src="js/angular.min.js"></script>
+        <script type="text/javascript" src="js/hangman.js"></script>
+        
+        <form name="setupForm" ng-controller="SetupController as setupCtrl" ng-submit="setupCtrl.done(hangman)" ng-hide="hangman.setupComplete">
+            <fieldset class="form-group">
+                <textarea ng-model="hangman.hangmanWord" class="form-control" placeholder="Enter a word for hangman..." title="Hangman Word" required></textarea>
+            </fieldset>
+            <fieldset class="form-group">
+                <input type="submit" class="btn btn-primary pull-right" value="Done" />
+            </fieldset>
+        </form>
+         
+        <div class="gallery">
+            <img ng-src="{{hangman.image}}" />
+        </div>
+        
+        <div>{{hangman.setupComplete}}</div>
+        <div>{{hangman.wordArray[4]}}</div>
+        
+        <form name="dataEntryForm" ng-controller="DataEntryController as dataEntryCtrl" ng-submit="dataEntryCtrl.submit(hangman)" ng-show="hangman.setupComplete">
+            <fieldset class="form-group">
+                <input ng-repeat="item in hangman.wordArray" type="text" maxlength="1" />
+                <input type="submit" class="btn btn-primary pull-right" value="Submit" />
+            </fieldset>
+        </form>         
+        
+        <form name=hintForm ng-controller="HintController as hintCtrl" ng-submit="hintCtrl.getHint(hangman)" ng-show="hangman.setupComplete">
+            <fieldset class="form-group">
+                <select ng-model="hangman.hintOption" class="form-control" ng-options="hints for hints in ['Standard Definition','Urban Dictionary Definition']"  title="Hint">
+                <input type="submit" class="btn btn-primary pull-right" value="Hint" />
+                <blockquote>{{hangman.definition}}</blockquote>    
+            </fieldset>
+        </form>
+        
+    </body>
+    
+</html>
