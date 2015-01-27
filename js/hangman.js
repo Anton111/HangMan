@@ -5,7 +5,7 @@
     app.controller('HangmanController', function () {
         
         this.hangmanWord = '';
-        this.image = 'images/Hangman0.png';
+        this.image = 'images/hangman0.jpg';
         this.hintOption = '';
         this.definition = '';
         this.setupComplete = false;
@@ -75,25 +75,25 @@
             {
                 switch(hangman.numberOfMisses){
                     case 0:
-                        hangman.image = 'images/Hangman0.png';
+                        hangman.image = 'images/hangman0.jpg';
                         break;
                     case 1:
-                        hangman.image = 'images/Hangman1.png';
+                        hangman.image = 'images/hangman1.jpg';
                         break;    
                     case 2:
-                        hangman.image = 'images/Hangman2.png';
+                        hangman.image = 'images/hangman2.jpg';
                         break;   
                     case 3:
-                        hangman.image = 'images/Hangman3.png';
+                        hangman.image = 'images/hangman3.jpg';
                         break;   
                     case 4:
-                        hangman.image = 'images/Hangman4.png';
+                        hangman.image = 'images/hangman4.jpg';
                         break;
                     case 5:
-                        hangman.image = 'images/Hangman5.png';
+                        hangman.image = 'images/hangman5.jpg';
                         break;
                     case 6:
-                        hangman.image = 'images/Hangman6.png';
+                        hangman.image = 'images/hangman6.jpg';
                         break;
                 }
             }

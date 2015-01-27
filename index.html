@@ -22,7 +22,7 @@
             </fieldset>
         </form>
          
-        <div class="gallery" style="text-align: center">
+        <div class="gallery" style="text-align: center" ng-show="hangman.setupComplete">
             <img ng-src="{{hangman.image}}" />
         </div>
         
@@ -38,7 +38,7 @@
         
         <form name=hintForm ng-controller="HintController as hintCtrl" ng-submit="hintCtrl.getHint(hangman)" ng-show="hangman.setupComplete">
             <fieldset class="form-group">
-                <select ng-model="hangman.hintOption" class="form-control" ng-options="hints for hints in ['Standard Definition','Urban Dictionary Definition']"  title="Hint">
+                <select ng-model="hangman.hintOption" class="form-control" ng-options="hints for hints in ['Standard Definition','Urban Dictionary Definition']" title="Hint">
                 <input type="submit" class="btn btn-success pull-right" value="Hint" />
                 <blockquote>{{hangman.definition}}</blockquote>    
             </fieldset>
