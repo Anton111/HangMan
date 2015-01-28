@@ -12,6 +12,8 @@
         this.numberOfMisses = 0;
         this.misses = [];
         this.winner = false;
+        this.currentMatches = [];
+        this.matchCount = 0;
     });
     
     app.controller('SetupController', function(){
@@ -32,8 +34,8 @@
     app.controller('DataEntryController', function(){
         
         this.submit = function(hangman){
-            var currentMatches = [];
-            var matchCount = 0;
+            hangman.currentMatches = [];
+            hangman.matchCount = 0;
             
             for(var i = 0; i< hangman.hangmanWord.length; i++)
             {
@@ -51,25 +53,24 @@
                     }
                     else { //A hit and a match
                         //Add to the list of matches because we need to replace other instances of the same letter if they appear later in the word
-                        this.currentMatches.push(hangman.wordArray[i]);
-                        this.matchCount ++;
+                        hangman.currentMatches.push(hangman.wordArray[i]);
+                        hangman.matchCount ++;
                     }
                 }   
-                /*else if(this.currentMatches.length > 0) //This part of the form hasnt chaned but we might need to replace a  letter if we already have matches
+                else if(hangman.currentMatches.length > 0) //This part of the form hasnt chaned but we might need to replace a  letter if we already have matches
                 {
-                    for(var j = 0; j < this.currentMatches.length; j++){
-                        if(hangman.hangmanWord.charAt(i) == this.currentMatches[j])
+                    for(var j = 0; j < hangman.currentMatches.length; j++){
+                        if(hangman.hangmanWord.charAt(i) == hangman.currentMatches[j])
                         {
-                            hangman.wordArray[i] = this.currentMatches[j];
-                            this.matchCount ++;
-                            break;    
+                            hangman.wordArray[i] = hangman.currentMatches[j];
+                            hangman.matchCount ++;   
                         }
                     }
-                }*/
+                }
             }
             
             //Do we have a winner??
-            if(this.matchCount == hangman.hangmanWord.length)
+            if(hangman.matchCount == hangman.hangmanWord.length)
             {
                 hangman.winner = true;    
             }

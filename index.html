@@ -39,9 +39,6 @@
             <img ng-src="{{hangman.image}}" />
         </div>
         
-        <div>{{hangman.numberOfMisses}}</div>
-        <div>{{hangman.winner}}</div>
-        
         <form name="dataEntryForm" ng-controller="DataEntryController as dataEntryCtrl" ng-click="dataEntryCtrl.submit(hangman)" ng-show="hangman.setupComplete">
             <fieldset class="form-group" style="text-align: center">
                 <input ng-repeat="item in hangman.wordArray track by $index"  ng-model="hangman.wordArray[$index]" type="text" maxlength="1" size="1" style="text-align: center" />
