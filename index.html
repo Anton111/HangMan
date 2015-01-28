@@ -15,6 +15,17 @@
     <script type="text/javascript" src="js/hangman.js"></script>
         
         <form name="setupForm" ng-controller="SetupController as setupCtrl" ng-submit="setupCtrl.done(hangman)" ng-hide="hangman.setupComplete">
+            <cite class="clearfix">
+                "When I felt them, they were perfect. I wouldn't want anyone touching those. 
+                    I would zip those things up and lock them away until 
+                    I got on the field and had the opportunity to play with them." -- Tom Brady 
+            </cite>
+            <br>
+            <cite class="clearfix">
+                Are you buying what Tom Brady had to say about the recent "deflategate" incident? 
+                Help decide Tom's fate with a game of hangman.... <br>
+            </cite>
+            <br>
             <fieldset class="form-group">
                 <textarea ng-model="hangman.hangmanWord" class="form-control" placeholder="Enter a word for hangman..." title="Hangman Word" required></textarea>
             </fieldset>
@@ -28,17 +39,28 @@
             <img ng-src="{{hangman.image}}" />
         </div>
         
-        <form name="dataEntryForm" ng-controller="DataEntryController as dataEntryCtrl" ng-submit="dataEntryCtrl.submit(hangman)" ng-show="hangman.setupComplete">
+        <div>{{hangman.numberOfMisses}}</div>
+        <div>{{hangman.winner}}</div>
+        
+        <form name="dataEntryForm" ng-controller="DataEntryController as dataEntryCtrl" ng-click="dataEntryCtrl.submit(hangman)" ng-show="hangman.setupComplete">
             <fieldset class="form-group" style="text-align: center">
                 <input ng-repeat="item in hangman.wordArray track by $index"  ng-model="hangman.wordArray[$index]" type="text" maxlength="1" size="1" style="text-align: center" />
+                <fieldset>
+                    Misses:
+                    <input ng-repeat="miss in hangman.misses track by $index"  ng-model="hangman.misses[$index]" type="text" maxlength="1" size="1" style="text-align: center" />
+                </fieldset>
+                
                 <input type="submit" class="btn btn-success pull-right" value="Submit" />
+
             </fieldset>
         </form>         
         
-        <form name=hintForm ng-controller="HintController as hintCtrl" ng-submit="hintCtrl.getHint(hangman)" ng-show="hangman.setupComplete">
+        <form name=hintForm ng-controller="HintController as hintCtrl" ng-click="hintCtrl.getHint(hangman)" ng-show="hangman.setupComplete">
             <fieldset class="form-group">
                 <select ng-model="hangman.hintOption" class="form-control" ng-options="hints for hints in ['Standard Definition','Urban Dictionary Definition']" title="Hint">
-                <input type="submit" class="btn btn-success pull-right" value="Hint" />
+                    <option value="">Select a hint option...</option>
+                </select>
+                <input type="submit" class="btn btn-success pull-right" value="Get Hint" />
                 <blockquote>{{hangman.definition}}</blockquote>    
             </fieldset>
         </form>

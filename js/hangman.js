@@ -3,7 +3,7 @@
     var app = angular.module('hangman', []);
     
     app.controller('HangmanController', function () {
-        
+            
         this.hangmanWord = '';
         this.image = 'images/hangman0.jpg';
         this.hintOption = '';
@@ -11,8 +11,6 @@
         this.setupComplete = false;
         this.numberOfMisses = 0;
         this.misses = [];
-        this.lastHit = ''
-        this.matchCount = 0;
         this.winner = false;
     });
     
@@ -34,10 +32,11 @@
     app.controller('DataEntryController', function(){
         
         this.submit = function(hangman){
-            var currentMatch = '';
+            var currentMatches = [];
             var matchCount = 0;
             
-            for(var i = 0; i< hangman.hangmanWord.length; i++){
+            for(var i = 0; i< hangman.hangmanWord.length; i++)
+            {
                 //If the user changed the value of this text box
                 if(hangman.wordArray[i] !== '')
                 {
@@ -45,33 +44,41 @@
                     {
                         //This was a miss
                         hangman.numberOfMisses ++;
+                        //Add the guess to the list of misses
                         hangman.misses.push(hangman.wordArray[i])
+                        //Reset the fom
                         hangman.wordArray[i] = '';
                     }
-                    else {
-                        //A hit and a match
-                        this.currentMatch = hangman.wordArray[i];
+                    else { //A hit and a match
+                        //Add to the list of matches because we need to replace other instances of the same letter if they appear later in the word
+                        this.currentMatches.push(hangman.wordArray[i]);
                         this.matchCount ++;
                     }
                 }   
-                else if(hangman.hangmanWord.charAt(i) == this.currentMatch)
+                /*else if(this.currentMatches.length > 0) //This part of the form hasnt chaned but we might need to replace a  letter if we already have matches
                 {
-                    hangman.wordArray[i] = this.currentMatch;
-                    this.matchCount ++;
-                }
+                    for(var j = 0; j < this.currentMatches.length; j++){
+                        if(hangman.hangmanWord.charAt(i) == this.currentMatches[j])
+                        {
+                            hangman.wordArray[i] = this.currentMatches[j];
+                            this.matchCount ++;
+                            break;    
+                        }
+                    }
+                }*/
             }
             
-            
+            //Do we have a winner??
             if(this.matchCount == hangman.hangmanWord.length)
             {
                 hangman.winner = true;    
             }
             
-            if(!hangman.winner && hangman.numberOfMisses == 6) //You lost :(
+            if(!hangman.winner && hangman.numberOfMisses == 7) //You lost :(
             {
-                hangman.image = 'images/hangman.jpg';
+                hangman.image = 'images/looser.jpg';
             }
-            else if(!hangman.winner) 
+            else if(!hangman.winner) //Keep guessing..
             {
                 switch(hangman.numberOfMisses){
                     case 0:
@@ -97,12 +104,13 @@
                         break;
                 }
             }
-            else 
+            else //You won!!
             {
-                hangman.image = 'images/hangman.jpg'    
+                hangman.image = 'images/winner.jpg'    
             }
             
         };
+        
     });
     
     app.controller('HintController',['$http', function($http){
