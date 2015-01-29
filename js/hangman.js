@@ -2,8 +2,7 @@
     
     var app = angular.module('hangman', []);
     
-    app.controller('HangmanController', function () {
-            
+    app.controller('HangmanController', function ($scope) {
         this.hangmanWord = '';
         this.guess = '';
         this.homeImage = 'images/brady.jpg'; 
@@ -95,7 +94,7 @@
             hangman.guess = '';
             
         };
-        
+            
     });
     
     app.controller('HintController',['$http', function($http){

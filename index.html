@@ -11,7 +11,7 @@
             
         <header>
             <h1 id="title" class="text-center">Tom Brady Hangman</h1>
-        </header>    
+        </header>       
         
         <form id="formOne" name="setupForm" ng-controller="SetupController as setupCtrl" ng-submit="setupCtrl.done(hangman)" ng-hide="hangman.setupComplete">
             <div>
@@ -30,7 +30,7 @@
             </div>
             <br>
             <fieldset class="form-group">
-                <input ng-model="hangman.hangmanWord"type="text" class="form-control" placeholder="Enter a word for hangman..." title="Hangman Word" required></>
+                <input ng-model="hangman.hangmanWord"type="text" class="form-control" placeholder="Enter a word for hangman..." title="Hangman Word" required>
             </fieldset>
             <fieldset class="form-group">
                 <input type="submit" class="btn btn-primary btn-block" value="Done" />
@@ -43,7 +43,7 @@
         
         <form id="formOne" name="dataEntryForm" ng-controller="DataEntryController as dataEntryCtrl" ng-submit="dataEntryCtrl.submit(hangman)" ng-show="hangman.setupComplete">
             <fieldset class="form-group" style="text-align: center">
-                <input id="lines" ng-repeat="item in hangman.wordArray track by $index" ng-model="hangman.wordArray[$index]" ng-readonly="true" type="text" maxlength="1" size="1" style="text-align: center" />
+                <input ng-repeat="item in hangman.wordArray track by $index" ng-model="hangman.wordArray[$index]" ng-readonly="true" type="text" maxlength="1" size="1" style="text-align: center" />
             <fieldset>
             <br>    
             <fieldset>    
@@ -52,9 +52,9 @@
                 </div>    
                 <input ng-repeat="miss in hangman.misses track by $index"  ng-model="hangman.misses[$index]" ng-readonly="true" type="text" maxlength="1" size="1" style="text-align: center" />
             </fieldset>
-            <br>
+            <br> 
             </fieldset>
-                <input ng-model="hangman.guess" class="form-control"placeholder="Enter a letter..." type="text" maxlength="1" size="15" style="text-align: center" ng-hide="hangman.winner"/>
+                <input ng-model="hangman.guess" class="form-control" placeholder="Enter a letter..." type="text" maxlength="1" size="15" style="text-align: center" />
                 <input type="submit" class="btn btn-primary btn-block" value="Guess" />
             </fieldset>
         </form>         
