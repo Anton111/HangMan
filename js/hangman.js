@@ -44,6 +44,10 @@
             {
                 if(hangman.hangmanWord.charAt(i).toLowerCase() == hangman.guess.toLowerCase())
                 {
+                   
+                   //The user already guessed this letter we can bail out
+                   if(hangman.wordArray[i] == hangman.guess) return; 
+                    
                     hangman.wordArray[i] = hangman.guess; 
                     hangman.matchCount++;
                     found = true;
@@ -52,6 +56,15 @@
             
             if(!found)
             {
+                for(var j = 0; j < hangman.misses.length; j++)
+                {
+                    //If the user already guessed this we can bail out
+                    if(hangman.misses[j].toLowerCase() == hangman.guess.toLowerCase())
+                    {
+                        return;       
+                    }
+                }
+                
                 hangman.misses.push(hangman.guess);
                 hangman.numberOfMisses++;
             }
