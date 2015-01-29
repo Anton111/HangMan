@@ -5,6 +5,8 @@
     app.controller('HangmanController', function () {
             
         this.hangmanWord = '';
+        this.guess = '';
+        this.homeImage = 'images/brady.jpg'; 
         this.image = 'images/hangman0.jpg';
         this.hintOption = '';
         this.definition = '';
@@ -12,7 +14,6 @@
         this.numberOfMisses = 0;
         this.misses = [];
         this.winner = false;
-        this.currentMatches = [];
         this.matchCount = 0;
     });
     
@@ -28,80 +29,60 @@
             
             hangman.setupComplete = true;
         };    
+        
     });
     
         
     app.controller('DataEntryController', function(){
         
         this.submit = function(hangman){
-            hangman.currentMatches = [];
-            hangman.matchCount = 0;
+            var found = false;
+            
+            //If the user didn't enter a letter we can bail out
+            if(!hangman.guess) return;
             
             for(var i = 0; i< hangman.hangmanWord.length; i++)
             {
-                //If the user changed the value of this text box
-                if(hangman.wordArray[i] !== '')
+                if(hangman.hangmanWord.charAt(i).toLowerCase() == hangman.guess.toLowerCase())
                 {
-                    if(hangman.wordArray[i] !== hangman.hangmanWord.charAt(i))
-                    {
-                        //This was a miss
-                        hangman.numberOfMisses ++;
-                        //Add the guess to the list of misses
-                        hangman.misses.push(hangman.wordArray[i])
-                        //Reset the fom
-                        hangman.wordArray[i] = '';
-                    }
-                    else { //A hit and a match
-                        //Add to the list of matches because we need to replace other instances of the same letter if they appear later in the word
-                        hangman.currentMatches.push(hangman.wordArray[i]);
-                        hangman.matchCount ++;
-                    }
-                }   
-                else if(hangman.currentMatches.length > 0) //This part of the form hasnt chaned but we might need to replace a  letter if we already have matches
-                {
-                    for(var j = 0; j < hangman.currentMatches.length; j++){
-                        if(hangman.hangmanWord.charAt(i) == hangman.currentMatches[j])
-                        {
-                            hangman.wordArray[i] = hangman.currentMatches[j];
-                            hangman.matchCount ++;   
-                        }
-                    }
+                    hangman.wordArray[i] = hangman.guess; 
+                    hangman.matchCount++;
+                    found = true;
                 }
+            }
+            
+            if(!found)
+            {
+                hangman.misses.push(hangman.guess);
+                hangman.numberOfMisses++;
             }
             
             //Do we have a winner??
             if(hangman.matchCount == hangman.hangmanWord.length)
             {
-                hangman.winner = true;    
+                hangman.winner = true;
             }
             
-            if(!hangman.winner && hangman.numberOfMisses == 7) //You lost :(
-            {
-                hangman.image = 'images/looser.jpg';
-            }
-            else if(!hangman.winner) //Keep guessing..
+            if(!hangman.winner) //Keep guessing..
             {
                 switch(hangman.numberOfMisses){
-                    case 0:
-                        hangman.image = 'images/hangman0.jpg';
-                        break;
                     case 1:
                         hangman.image = 'images/hangman1.jpg';
-                        break;    
+                        break;
                     case 2:
                         hangman.image = 'images/hangman2.jpg';
-                        break;   
+                        break;    
                     case 3:
                         hangman.image = 'images/hangman3.jpg';
                         break;   
                     case 4:
                         hangman.image = 'images/hangman4.jpg';
-                        break;
+                        break;   
                     case 5:
                         hangman.image = 'images/hangman5.jpg';
                         break;
                     case 6:
-                        hangman.image = 'images/hangman6.jpg';
+                        hangman.image = 'images/loser.jpg'
                         break;
                 }
             }
@@ -109,6 +90,9 @@
             {
                 hangman.image = 'images/winner.jpg'    
             }
+            
+            //Clear out the previous guess
+            hangman.guess = '';
             
         };
         

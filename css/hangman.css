@@ -9,3 +9,13 @@ body {
     font-size:70px;
     font-style: italic;
 }
+
+#formOne{
+   width: 50%;
+   min-width:200px;
+   margin: auto auto;
+}
+
+blockquote{
+   border:none;
+}
