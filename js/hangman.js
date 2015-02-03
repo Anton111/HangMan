@@ -40,6 +40,9 @@
             //If the user didn't enter a letter we can bail out
             if(!hangman.guess) return;
             
+            //If the game is over
+            if(hangman.winner || hangman.numberOfMisses == 6) return;
+            
             for(var i = 0; i< hangman.hangmanWord.length; i++)
             {
                 if(hangman.hangmanWord.charAt(i).toLowerCase() == hangman.guess.toLowerCase())
